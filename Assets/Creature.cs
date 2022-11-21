@@ -7,7 +7,8 @@ using UnityEngine;
 public class Creature : ScriptableObject
 {
     [SerializeField] new string name;
-    [SerializeField] Sprite frontSprite;
+    [SerializeField] Sprite mainSprite;
+    [SerializeField] Sprite elementSprite;
     [TextArea]
     [SerializeField] string description;
     [SerializeField] Element elementType;
@@ -19,6 +20,7 @@ public class Creature : ScriptableObject
     [SerializeField] int passive1;
     [SerializeField] int passive2;
     [SerializeField] int ultimate;
+    [SerializeField] int cost;
 
     public string Name{
     get{return name;}
@@ -28,9 +30,18 @@ public string Description{
     get{return description;}
 }
 
-public Sprite FrontSprite{
-    get{return frontSprite;}
+public int Cost{
+    get{return cost;}
 }
+
+public Sprite MainSprite{
+    get{return mainSprite;}
+}
+
+public Sprite ElementSprite{
+    get{return elementSprite;}
+}
+
 
 public Element ElementType{
     get{return elementType;}
@@ -62,9 +73,9 @@ public int Ultimate{
 }
 
 public enum Element{
-    Fire,
-    Water,
-    Air,
-    Earth
+    Fuego,
+    Agua,
+    Aire,
+    Tierra
 }
 
