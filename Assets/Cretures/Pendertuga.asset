@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0822ee59766ace41a5ffe568fb0beec, type: 3}
+  m_Name: Pendertuga
+  m_EditorClassIdentifier: 
+  name: Pendertuga
+  mainSprite: {fileID: 21300000, guid: 71b3e9a3bc20a9d43a406c217d0f8f2c, type: 3}
+  elementSprite: {fileID: 21300000, guid: 17e137951fa03ca409eff46d174a8893, type: 3}
+  description: Pendejisimo no pasa nada reprueba
+  elementType: 1
+  life: 10
+  defense: 200
+  attack: 5
+  passive1: 6
+  passive2: 23
+  ultimate: 23
+  cost: 20
