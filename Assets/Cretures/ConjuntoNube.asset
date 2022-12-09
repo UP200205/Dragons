@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0822ee59766ace41a5ffe568fb0beec, type: 3}
+  m_Name: ConjuntoNube
+  m_EditorClassIdentifier: 
+  name: Conjuntonube
+  mainSprite: {fileID: 21300000, guid: c59332f4650ee934eab2a0530091bff8, type: 3}
+  elementSprite: {fileID: 21300000, guid: acdee5dcd8d0bcc449188e8597a03160, type: 3}
+  description: Tracala tracala te matala
+  elementType: 2
+  life: 150
+  defense: 100
+  attack: 30
+  passive1: 50
+  passive2: 80
+  ultimate: 200
+  cost: 100

@@ -12,11 +12,7 @@ public class Music : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else
-        {
-            DontDestroyOnLoad(this.gameObject);
-            _audioSource = GetComponent<AudioSource>();
-        }
+
     }
 
     public void PlayMusic()
