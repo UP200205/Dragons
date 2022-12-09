@@ -7,12 +7,12 @@ public class BattleUnit : MonoBehaviour
 {
     [SerializeField] Creature cBase;
     [SerializeField] int level;
-    [SerializeField] float rarity;
+    [SerializeField] int rarity;
 
-    public CreatureLvl Creature {get; set;}
+    public CreatureLvl creature {get; set;}
 
     public void Setup(){
-        Creature = new CreatureLvl(cBase, level, rarity);
-        GetComponent<Image>().sprite = Creature.creatureBase.MainSprite;
+        creature = new CreatureLvl(cBase, level, rarity);
+        GetComponent<Image>().sprite = creature.creatureBase.MainSprite;
     }
 }

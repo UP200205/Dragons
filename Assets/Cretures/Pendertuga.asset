@@ -17,9 +17,9 @@ MonoBehaviour:
   elementSprite: {fileID: 21300000, guid: 17e137951fa03ca409eff46d174a8893, type: 3}
   description: Pendejisimo no pasa nada reprueba
   elementType: 1
-  life: 10
+  life: 50
   defense: 200
-  attack: 5
+  attack: 10
   passive1: 6
   passive2: 23
   ultimate: 23

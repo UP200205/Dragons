@@ -14,6 +14,7 @@ public class CombatSystem : MonoBehaviour
 
     BattleState state;
     int currentAction=100;
+    int currentAttack=100;
 
     private void Start(){
         StartCoroutine(SetupBattle());
@@ -22,11 +23,10 @@ public class CombatSystem : MonoBehaviour
     public IEnumerator SetupBattle(){
         enemyUnit.Setup();
         playerUnit.Setup();
-        enemyUnit.Setup();
-        playerHud.SetData(playerUnit.Creature);
-        enemyHud.SetData(enemyUnit.Creature);
+        playerHud.SetData(playerUnit.creature);
+        enemyHud.SetData(enemyUnit.creature);
 
-        yield return dialogBox.TypeDialog($"¡Combatirás contra un {enemyUnit.Creature.creatureBase.Name} salvaje!");
+        yield return dialogBox.TypeDialog($"¡Combatirás contra un {enemyUnit.creature.creatureBase.Name} salvaje!");
         yield return new WaitForSeconds(1f);
 
         PlayerAction();
@@ -43,11 +43,68 @@ public class CombatSystem : MonoBehaviour
         dialogBox.EnableActionSelector(false);
         dialogBox.EnableDialogText(false);
         dialogBox.EnableAttackSelector(true);
+        UpdateAction(100);
     }
+
+    IEnumerator PerformPlayerAttack(){
+                state = BattleState.Busy;
+        bool isFainted = false;
+        if(currentAttack==1){
+            yield return dialogBox.TypeDialog($"{playerUnit.creature.creatureBase.Name} usó ataque 1");
+            yield return new WaitForSeconds(1f);
+            isFainted = enemyUnit.creature.TakeDamage(playerUnit.creature.Passive1,playerUnit.creature);
+        }else if(currentAttack==2){
+            yield return dialogBox.TypeDialog($"{playerUnit.creature.creatureBase.Name} usó ataque 2");
+            yield return new WaitForSeconds(1f);
+            isFainted = enemyUnit.creature.TakeDamage(playerUnit.creature.Passive2,playerUnit.creature);
+        }else if(currentAttack==3){
+            yield return dialogBox.TypeDialog($"{playerUnit.creature.creatureBase.Name} usó definitiva");
+            yield return new WaitForSeconds(1f);
+            isFainted = enemyUnit.creature.TakeDamage(playerUnit.creature.Ultimate,playerUnit.creature);
+        }
+        
+        
+        yield return enemyHud.UpdateHealth();
+        UpdateAttack(100);
+        if (isFainted){
+            yield return dialogBox.TypeDialog($"{enemyUnit.creature.creatureBase.Name} ha fallecido");
+        }else{
+            StartCoroutine(PerformEnemyAttack());
+        }
+    }
+
+    IEnumerator PerformEnemyAttack(){
+        state = BattleState.EnemyMove;
+        var enemyAttack = Random.Range(1,4);
+       bool isFainted = false;
+        if(enemyAttack==1){
+            yield return dialogBox.TypeDialog($"{enemyUnit.creature.creatureBase.Name} usó ataque 1");
+            yield return new WaitForSeconds(1f);
+            isFainted = playerUnit.creature.TakeDamage(enemyUnit.creature.Passive1,enemyUnit.creature);
+        }else if(enemyAttack==2){
+            yield return dialogBox.TypeDialog($"{enemyUnit.creature.creatureBase.Name} usó ataque 2");
+            yield return new WaitForSeconds(1f);
+            isFainted = playerUnit.creature.TakeDamage(enemyUnit.creature.Passive2,enemyUnit.creature);
+        }else if(enemyAttack==3){
+            yield return dialogBox.TypeDialog($"{enemyUnit.creature.creatureBase.Name} usó definitiva");
+            yield return new WaitForSeconds(1f);
+            isFainted = playerUnit.creature.TakeDamage(enemyUnit.creature.Ultimate,enemyUnit.creature);
+        }
+        yield return playerHud.UpdateHealth();
+          if (isFainted){
+              yield return dialogBox.TypeDialog($"{playerUnit.creature.creatureBase.Name} ha fallecido");
+          }else{
+              PlayerAction();
+          }
+
+    }
+
 
     private void Update(){
         if(state==BattleState.PlayerAction){
             HandleActionSelection();
+        }else if(state==BattleState.PlayerMove){
+            HandleAttackSelection();
         }
     }
 
@@ -59,7 +116,21 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
+    void HandleAttackSelection(){
+        if(currentAttack!=100){
+            dialogBox.EnableAttackSelector(false);
+            dialogBox.EnableDialogText(true);
+            StartCoroutine(PerformPlayerAttack());
+        }
+
+        
+    }
+
     public void UpdateAction(int action){
         currentAction=action;
+    }
+
+    public void UpdateAttack(int attack){
+        currentAttack=attack;
     }
 }
